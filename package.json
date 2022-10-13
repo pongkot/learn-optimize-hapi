@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node main.js"
+  },
   "devDependencies": {
     "eslint": "^8.25.0",
     "prettier": "2.7.1"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2"
   }
 }
