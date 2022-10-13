@@ -12,7 +12,7 @@
 //     }
 // }
 
-const createDecorate = (callback, version = '1.0.0') => {
+const createToolkot = (callback, version = '1.0.0') => {
     const name = callback.name
     return {
         name,
@@ -23,4 +23,4 @@ const createDecorate = (callback, version = '1.0.0') => {
     }
 }
 
-module.exports = createDecorate
+module.exports = { createToolkot }
