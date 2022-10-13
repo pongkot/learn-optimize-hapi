@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "ignore": ["*.test.js", "**/fixtures/**", "**/docs/**"],
+  "delay": 2500,
+  "execMap": {
+    "rb": "ruby",
+    "pde": "processing --sketch={{pwd}} --run"
+  }
+}
