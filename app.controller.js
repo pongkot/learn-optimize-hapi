@@ -1,18 +1,14 @@
-const getAppService = (h) => h.AppService({ logger: h.Logger() })
+const { createRouter } = require('./common/hapi-toolkit')
 
-const AppController = {
-    name: 'AppController',
-    version: '1.0.0',
-    register: async (server) => {
-        server.route({
-            method: 'GET',
-            path: '/',
-            handler: async (request, h) => {
-                const appService = getAppService(h)
-                return appService.getHello('Pongkot')
-            },
-        })
-    },
+const getAppService = (h) => h.AppService()
+
+const AppController = (router = createRouter()) => {
+    router.http('GET', '/').handler(async (request, h) => {
+        const appService = getAppService(h)
+        return appService.getHello('Pongkot')
+    })
+
+    return router
 }
 
 module.exports = AppController

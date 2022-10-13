@@ -1,25 +1,4 @@
-// const Logger = {
-//     name: 'Logger',
-//     version: '1.0.0',
-//     register: (server) => {
-//         const callback = () => {
-//             let context = ''
-
-//             const getContext = () => context
-
-//             return {
-//                 setContext: (ctx) => {
-//                     context = ctx
-//                 },
-//                 log: (msg) =>
-//                     console.log(`LOG   [acme-hapi-api] ${getContext()} ${msg}`),
-//             }
-//         }
-//         server.decorate('toolkit', 'Logger', callback)
-//     },
-// }
-
-const Logger = (name = 'acme-hapi-api') => {
+const Logger = (appName = 'acme-hapi-api') => {
     let context = ''
 
     const getContext = () => context
@@ -28,8 +7,11 @@ const Logger = (name = 'acme-hapi-api') => {
         setContext: (ctx) => {
             context = ctx
         },
-        log: (msg) => console.log(`LOG   [${name}] ${getContext()} ${msg}`),
-    }   
+        log: (msg) => console.log(`[${appName}] LOG   ${getContext()} ${msg}`),
+        debug: () => {},
+        verbose: () => {},
+        info: () => {},
+    }
 }
 
 module.exports = Logger
