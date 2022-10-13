@@ -1,6 +1,7 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi')
+const AppModule = require('./app.module')
 
 const init = async () => {
     const server = Hapi.server({
@@ -8,13 +9,7 @@ const init = async () => {
         host: 'localhost',
     })
 
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: () => {
-            return 'Hello World!'
-        },
-    })
+    await server.register(AppModule)
 
     await server.start()
     console.log('[acme-hapi-api]', 'Server running on %s', server.info.uri)
