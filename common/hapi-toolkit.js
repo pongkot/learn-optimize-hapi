@@ -34,26 +34,26 @@ const createRoutePlugin = (callback, version = '1.0.0') => {
     }
 }
 
-const registerToolkitOnce = async (server, ...callbacks) => {
-    for (const callback of callbacks) {
-        await server.register(createDecorateToolkit(callback), { once: true })
-    }
-    return server
-}
+// const registerToolkitOnce = async (server, ...callbacks) => {
+//     for (const callback of callbacks) {
+//         await server.register(createDecorateToolkit(callback), { once: true })
+//     }
+//     return server
+// }
 
-const registerRoute = async (server, ...callbacks) => {
-    for (const callback of callbacks) {
-        await server.register(createRoutePlugin(callback))
-    }
-    return server
-}
+// const registerRoute = async (server, ...callbacks) => {
+//     for (const callback of callbacks) {
+//         await server.register(createRoutePlugin(callback))
+//     }
+//     return server
+// }
 
-const register = async (server, ...callbacks) => {
-    for (const callback of callbacks) {
-        await server.register(createPlugin(callback))
-    }
-    return server
-}
+// const register = async (server, ...callbacks) => {
+//     for (const callback of callbacks) {
+//         await server.register(createPlugin(callback))
+//     }
+//     return server
+// }
 
 const createRouter = () =>
     new (class createRouter {
@@ -81,4 +81,29 @@ const createRouter = () =>
         }
     })()
 
-module.exports = { registerToolkitOnce, register, registerRoute, createRouter }
+const createHapiToolkit = (server) => {
+    return {
+        registerToolkitOnce: async (...callbacks) => {
+            for (const callback of callbacks) {
+                await server.register(createDecorateToolkit(callback), {
+                    once: true,
+                })
+            }
+            return server
+        },
+        register: async (...callbacks) => {
+            for (const callback of callbacks) {
+                await server.register(createPlugin(callback))
+            }
+            return server
+        },
+        registerRoute: async (...callbacks) => {
+            for (const callback of callbacks) {
+                await server.register(createRoutePlugin(callback))
+            }
+            return server
+        },
+    }
+}
+
+module.exports = { createHapiToolkit, createRouter }

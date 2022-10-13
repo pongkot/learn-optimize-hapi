@@ -3,7 +3,7 @@
 const Hapi = require('@hapi/hapi')
 const AppModule = require('./app.module')
 const Logger = require('./common/logger')
-const toolkit = require('./common/hapi-toolkit')
+const { createHapiToolkit } = require('./common/hapi-toolkit')
 
 const logger = Logger()
 logger.setContext('Init')
@@ -13,9 +13,10 @@ const init = async () => {
         port: 3000,
         host: 'localhost',
     })
+    const toolkit = createHapiToolkit(server)
 
     // Modules
-    await toolkit.register(server, AppModule)
+    await toolkit.register(AppModule)
 
     await server.start()
     logger.log(`Server running on ${server.info.uri}`)

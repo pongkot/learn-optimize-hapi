@@ -7,7 +7,6 @@ const AppController = (router = createRouter()) => {
         const appService = getAppService(h)
         return appService.getHello('Pongkot')
     })
-
     return router
 }
 
