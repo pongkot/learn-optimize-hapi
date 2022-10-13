@@ -2,6 +2,7 @@
 
 const Hapi = require('@hapi/hapi')
 const AppModule = require('./app.module')
+const Logger = require('./common/logger')
 
 const init = async () => {
     const server = Hapi.server({
@@ -9,6 +10,7 @@ const init = async () => {
         host: 'localhost',
     })
 
+    await server.register(Logger)
     await server.register(AppModule)
 
     await server.start()

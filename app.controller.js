@@ -1,3 +1,5 @@
+const getAppService = (h) => h.AppService({ logger: h.Logger() })
+
 const AppController = {
     name: 'AppController',
     version: '1.0.0',
@@ -5,8 +7,9 @@ const AppController = {
         server.route({
             method: 'GET',
             path: '/',
-            handler: (request, h) => {
-                return h.appService().getHello('Pongkot')
+            handler: async (request, h) => {
+                const appService = getAppService(h)
+                return appService.getHello('Pongkot')
             },
         })
     },

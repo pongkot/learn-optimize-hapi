@@ -1,13 +1,11 @@
-const AppService = {
-    name: 'AppService',
-    version: '1.0.0',
-    register: (server) => {
-        server.decorate('toolkit', 'appService', () => {
-            return {
-                getHello: (name) => `Hello, ${name}!`,
-            }
-        })
-    },
+const AppService = ({ logger }) => {
+    logger.setContext('AppService')
+    return {
+        getHello: (name) => {
+            logger.log(`Hello, ${name}!`)
+            return `Hello, ${name}!`
+        },
+    }
 }
 
 module.exports = AppService
