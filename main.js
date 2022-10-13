@@ -1,5 +1,3 @@
-'use strict'
-
 const Hapi = require('@hapi/hapi')
 const AppModule = require('./app.module')
 const Logger = require('./common/logger')

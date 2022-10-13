@@ -25,6 +25,7 @@ const createRoutePlugin = (callback, version = '1.0.0') => {
     return {
         name,
         version,
+        // TODO implement map validate and auth
         register: (server) => {
             for (const route of routes) {
                 const { method, path, handler } = route
@@ -34,52 +35,32 @@ const createRoutePlugin = (callback, version = '1.0.0') => {
     }
 }
 
-// const registerToolkitOnce = async (server, ...callbacks) => {
-//     for (const callback of callbacks) {
-//         await server.register(createDecorateToolkit(callback), { once: true })
-//     }
-//     return server
-// }
+class CreateRoute {
+    #routes = []
+    #compose = {
+        method: null,
+        path: null,
+        handler: null,
+    }
 
-// const registerRoute = async (server, ...callbacks) => {
-//     for (const callback of callbacks) {
-//         await server.register(createRoutePlugin(callback))
-//     }
-//     return server
-// }
+    http(method, path) {
+        this.#compose.method = method
+        this.#compose.path = path
+        return this
+    }
 
-// const register = async (server, ...callbacks) => {
-//     for (const callback of callbacks) {
-//         await server.register(createPlugin(callback))
-//     }
-//     return server
-// }
+    handler(callback) {
+        this.#compose.handler = callback
+        this.#routes.push(this.#compose)
+        this.#compose = { method: null, path: null, handler: null }
+    }
 
-const createRouter = () =>
-    new (class createRouter {
-        #routes = []
-        #compose = {
-            method: null,
-            path: null,
-            handler: null,
-        }
+    getRoutes() {
+        return this.#routes
+    }
+}
 
-        http(method, path) {
-            this.#compose.method = method
-            this.#compose.path = path
-            return this
-        }
-
-        handler(callback) {
-            this.#compose.handler = callback
-            this.#routes.push(this.#compose)
-            this.#compose = { method: null, path: null, handler: null }
-        }
-
-        getRoutes() {
-            return this.#routes
-        }
-    })()
+const createRouter = () => new CreateRoute()
 
 const createHapiToolkit = (server) => {
     return {
