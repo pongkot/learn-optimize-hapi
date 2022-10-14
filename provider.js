@@ -3,7 +3,8 @@ const provider = (h) => {
     const userRepository = h.UserRepository()
 
     // Services
-    const appService = h.AppService({ userRepository })
+    const userService = h.UserService({ userRepository })
+    const appService = h.AppService({ userService })
 
     return { appService }
 }

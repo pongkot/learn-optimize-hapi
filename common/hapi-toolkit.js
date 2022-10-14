@@ -1,3 +1,7 @@
+const Logger = require('./logger')
+
+const logger = Logger()
+
 const createDecorateToolkit = (callback, version = '1.0.0') => {
     const name = callback.name
     return {
@@ -63,9 +67,12 @@ class CreateRoute {
 const createRouter = () => new CreateRoute()
 
 const createHapiToolkit = (server) => {
+    logger.setContext('CreateHapiToolkit')
     return {
         registerToolkitOnce: async (...callbacks) => {
             for (const callback of callbacks) {
+                const name = callback.name
+                logger.log(`Register toolkit once ${name}`)
                 await server.register(createDecorateToolkit(callback), {
                     once: true,
                 })
@@ -74,12 +81,16 @@ const createHapiToolkit = (server) => {
         },
         register: async (...callbacks) => {
             for (const callback of callbacks) {
+                const name = callback.name
+                logger.log(`Register ${name}`)
                 await server.register(createPlugin(callback))
             }
             return server
         },
         registerRoute: async (...callbacks) => {
             for (const callback of callbacks) {
+                const name = callback.name
+                logger.log(`Register route ${name}`)
                 await server.register(createRoutePlugin(callback))
             }
             return server

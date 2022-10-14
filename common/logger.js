@@ -7,7 +7,8 @@ const Logger = (appName = 'acme-hapi-api') => {
         setContext: (ctx) => {
             context = ctx
         },
-        log: (msg) => console.log(`[${appName}] LOG   ${getContext()} ${msg}`),
+        log: (msg) =>
+            console.log(`[${appName}] LOG   [${getContext()}] ${msg}`),
         debug: () => {},
         verbose: () => {},
         info: () => {},
