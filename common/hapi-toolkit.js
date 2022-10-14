@@ -1,4 +1,5 @@
 const Logger = require('./logger')
+const p = require('path')
 
 const logger = Logger()
 
@@ -40,6 +41,7 @@ const createRoutePlugin = (callback, version = '1.0.0') => {
 }
 
 class CreateRoute {
+    #prefix = '/'
     #routes = []
     #compose = {
         name: null,
@@ -51,6 +53,10 @@ class CreateRoute {
         },
     }
 
+    constructor(prefix) {
+        this.#prefix = prefix ? `/${prefix}` : '/'
+    }
+
     name(context) {
         this.#compose.name = context
         return this
@@ -58,7 +64,8 @@ class CreateRoute {
 
     http(method, path) {
         this.#compose.method = method
-        this.#compose.path = path
+        path = path === '/' ? '' : path
+        this.#compose.path = p.join(this.#prefix, path)
         return this
     }
 
@@ -85,7 +92,7 @@ class CreateRoute {
     }
 }
 
-const createRouter = () => new CreateRoute()
+const createRouter = (prefix) => new CreateRoute(prefix)
 
 const createHapiToolkit = (server) => {
     logger.setContext('CreateHapiToolkit')
