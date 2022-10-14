@@ -12,10 +12,11 @@
         "vscode": {
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
-                "dbaeumer.vscode-eslint",
-                "ms-vscode.vscode-typescript-next",
-                "esbenp.prettier-vscode"
-            ]
+				"dbaeumer.vscode-eslint",
+				"ms-vscode.vscode-typescript-next",
+				"esbenp.prettier-vscode",
+				"WakaTime.vscode-wakatime"
+			]
         }
     },
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
