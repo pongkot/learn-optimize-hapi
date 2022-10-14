@@ -29,11 +29,11 @@ const createRoutePlugin = (callback, version = '1.0.0') => {
     return {
         name,
         version,
-        // TODO implement map validate and auth
+        // TODO implement map auth
         register: (server) => {
             for (const route of routes) {
-                const { method, path, handler } = route
-                server.route({ method, path, handler })
+                const { method, path, handler, options } = route
+                server.route({ method, path, handler, options })
             }
         },
     }
@@ -42,9 +42,18 @@ const createRoutePlugin = (callback, version = '1.0.0') => {
 class CreateRoute {
     #routes = []
     #compose = {
+        name: null,
         method: null,
         path: null,
         handler: null,
+        options: {
+            validate: null,
+        },
+    }
+
+    name(context) {
+        this.#compose.name = context
+        return this
     }
 
     http(method, path) {
@@ -53,10 +62,22 @@ class CreateRoute {
         return this
     }
 
+    validate(joi) {
+        this.#compose.options.validate = joi()
+        return this
+    }
+
     handler(callback) {
         this.#compose.handler = callback
         this.#routes.push(this.#compose)
-        this.#compose = { method: null, path: null, handler: null }
+        this.#compose = {
+            method: null,
+            path: null,
+            handler: null,
+            options: {
+                validate: null,
+            },
+        }
     }
 
     getRoutes() {

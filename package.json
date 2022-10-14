@@ -15,7 +15,8 @@
     },
     "dependencies": {
         "@hapi/eslint-plugin": "^6.0.0",
-        "@hapi/hapi": "^20.2.2"
+        "@hapi/hapi": "^20.2.2",
+        "joi": "^17.6.3"
     },
     "extends": "plugin:@hapi/recommended"
 }
