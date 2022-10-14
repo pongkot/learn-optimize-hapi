@@ -1,20 +1,21 @@
 {
-  "name": "acme-hapi-api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "node main.js",
-    "start:dev": "nodemon main.js"
-  },
-  "devDependencies": {
-    "eslint": "^8.25.0",
-    "nodemon": "^2.0.20",
-    "prettier": "2.7.1"
-  },
-  "dependencies": {
-    "@hapi/eslint-plugin": "^6.0.0",
-    "@hapi/hapi": "^20.2.2"
-  },
-  "extends": "plugin:@hapi/recommended"
+    "name": "acme-hapi-api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "node main.js",
+        "start:dev": "nodemon main.js",
+        "lint": "eslint --fix ."
+    },
+    "devDependencies": {
+        "eslint": "^8.25.0",
+        "nodemon": "^2.0.20",
+        "prettier": "2.7.1"
+    },
+    "dependencies": {
+        "@hapi/eslint-plugin": "^6.0.0",
+        "@hapi/hapi": "^20.2.2"
+    },
+    "extends": "plugin:@hapi/recommended"
 }

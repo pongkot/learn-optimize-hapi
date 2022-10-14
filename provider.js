@@ -1,7 +1,11 @@
 const provider = (h) => {
-    return {
-        appService: h.AppService(),
-    }
+    // Repositorys
+    const userRepository = h.UserRepository()
+
+    // Services
+    const appService = h.AppService({ userRepository })
+
+    return { appService }
 }
 
 module.exports = provider

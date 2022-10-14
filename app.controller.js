@@ -6,6 +6,10 @@ const AppController = (router = createRouter()) => {
         const { appService } = provider(h)
         return appService.getHello('Pongkot')
     })
+    router.http('GET', '/users').handler(async (request, h) => {
+        const { appService } = provider(h)
+        return appService.listUser()
+    })
     return router
 }
 
